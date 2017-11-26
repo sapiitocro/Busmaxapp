@@ -26,35 +26,37 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 @Controller
-public class LoginController {
+public class RegisterController {
 	
 	
 	public String vista = "login";
 
 
 	
-	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
+	private static final Logger logger = LoggerFactory.getLogger(RegisterController.class);
 
-	@GetMapping("/login")
-	public String preLogin() {
+	@GetMapping("/register")
+	public String preRegister() {
 		
-		 logger.info("Devolviendo vista Login");
+		 logger.info("Devolviendo vista Registro");
 			
-		return "login";
+		return "register";
 	}
 
 //-----------------------------------------------------------------------------------------------------------
-	@PostMapping("/login")
+	@PostMapping("/register")
 	public String login(final Model model,final HttpSession httpSession,
 				  @RequestParam(value = "username") String username,
-				  @RequestParam(value = "password") String password) throws InterruptedException 
+				  @RequestParam(value = "password") String password,
+				  @RequestParam(value = "fullname") String fullname,
+				  @RequestParam(value = "email") String email) throws InterruptedException 
 	{								
 	
    
     logger.info("Entrando al flujo de APi");
 	//Iniciando el API
 	 ApiService service = ApiServiceGenerator.createService(ApiService.class);
-     Call<UserApi> call = service.loginUser(username, password);
+     Call<UserApi> call = service.createUsuario(username, password,fullname,email);
      logger.info("Culminó la creación del APi");			
 	//Mensajes de error o bienvenida     
      
@@ -71,7 +73,7 @@ public class LoginController {
     	         {
     	             UserApi responseMessage = response.body();
     	             logger.info("responseMessage: " + responseMessage);
-    	             logger.info("Login correcto");
+    	             logger.info("registro correcto");
     	             httpSession.setAttribute("usuario",responseMessage.getUsername());
     	             vista= "redirect:/admin/menu";
     	            
@@ -81,10 +83,10 @@ public class LoginController {
     	         } else 
     	         {
     	        	//progressDialog.dismiss();
-    	        	 logger.info("Login incorrecto");
+    	        	 logger.info("Registro incorrecto");
     	        	 logger.info("onError: " + response.errorBody().string());
-    	        	 model.addAttribute("message", "Usuario y clave incorrectos");
-    	             vista="login";
+    	        	 model.addAttribute("message", "Registro incorrecto");
+    	             vista="register";
     	         }
     	     }catch (Throwable t) 
     	     {
@@ -95,7 +97,7 @@ public class LoginController {
     	         			logger.info("onThrowable: " + t.toString(), t);
     	        	
     	         			model.addAttribute("message", t.getMessage());
-    	         			 vista= "login";   	        	           	             
+    	         			 vista= "register";   	        	           	             
     	         		} catch (Throwable x) 
     	         		{}
     	     }
@@ -107,7 +109,7 @@ public class LoginController {
         	 logger.info("onFailure: " + t.toString());
             
         	 model.addAttribute("message", t.getMessage());
-        	 vista= "login";
+        	 vista= "register";
 	                  
          } 
          

@@ -102,7 +102,7 @@ public class ParaderoDAOImpl implements ParaderoDAO{
 //
 //		Object[] params = new Object[] { password, lastname, firstname, salary, dptId, login };
 
-		String query = "UPDATE paraderos SET nombre = ?, latitud =? longitud =? WHERE id_paradero = ?";
+		String query = "UPDATE paraderos SET nombre = ?, latitud =?, longitud =? WHERE id_paradero = ?";
 
 		Object[] params = new Object[] { nombre,latitud, longitud, id_empresa};
 

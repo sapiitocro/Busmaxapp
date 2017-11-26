@@ -31,10 +31,12 @@ public interface ApiService {
             (@Field("username")String username,
              @Field("password") String password
             );
+    
     @FormUrlEncoded
     @POST("api/v1/register")
-    Call<ResponseMessage> createUsuario(@Field("username") String username,
+    Call<UserApi> createUsuario(@Field("username") String username,
                                         @Field("password") String password,
+                                        @Field("fullname") String fullname,
                                         @Field("email") String email);
 
 
