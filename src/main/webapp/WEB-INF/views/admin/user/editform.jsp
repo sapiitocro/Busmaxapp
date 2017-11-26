@@ -22,19 +22,26 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="col-md-6">
-				<h4 class="text-center">Editar Empresas</h4>
+				<h4 class="text-center">Editar Usuarios</h4>
 				<hr>
-				<form:form method="post"  servletRelativeAction="/admin/emp/editsave" modelAttribute="empresa" >
-					<form:hidden path="id_empresa" />
+				<form:form method="post"  servletRelativeAction="/admin/user/editsave" modelAttribute="usuario" >
+					<form:hidden path="id" />
+					
 					<div class="form-group">
-						<label for="login">Nombre: </label>
-						<form:input path="nombre" class="form-control"/>
+						<label for="username">Username: </label>
+						<form:input path="username" class="form-control"/>
 							
 					</div>
 					<div class="form-group">
-						<label for="password">Descripcion: </label>
-						<form:input path="descripcion" class="form-control" />
+						<label for="fulname">Nombre Completo: </label>
+						<form:input path="fulname" class="form-control" />
 					</div>
+					
+					<div class="form-group">
+						<label for="email">Email: </label>
+						<form:input path="email" class="form-control" />
+					</div>
+			
 			
 					<%-- 
 					<div class="form-group">
@@ -44,7 +51,7 @@
 					--%>	
 					<div class="form-group">
 						<input type="submit" value="Save" class="btn btn-success" />
-						<a href="<%=request.getContextPath()%>/admin/emp/list" class="btn btn-danger">Cancel</a>
+						<a href="<%=request.getContextPath()%>/admin/user/list" class="btn btn-danger">Cancel</a>
 					</div>
 				</form:form>
 				<font color="red">${message}</font>

@@ -17,37 +17,35 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="col-md-8">
-				<h4 class="text-center">Empresa</h4>
+				<h4 class="text-center">Usuarios</h4>
 				<hr>
-				<a href="<%=request.getContextPath()%>/admin/emp/createform"
-					class="btn btn-success"><i class="glyphicon glyphicon-edit"></i>
-					Crear Empresa</a> <a href="<%=request.getContextPath()%>/admin/menu"
-					class="btn btn-primary"><i class="glyphicon glyphicon-edit"></i>
-					Menu</a> <br />
+			 <br />
 				<table class="table table-bordered table-striped">
 					<thead>
 						<tr>
 							<th>Id</th>
-							<th>Nombre</th>
-							<th>Descripcion</th>
+							<th>Usuario</th>
+							<th>Nombre Completo</th>
+							<th>Email</th>
 							<th>Edit</th>
 							<th>Delete</th>
 						</tr>
 					</thead>
 					<tbody>
 			
-						<c:forEach var="emp" items="${empresas}" >
+						<c:forEach var="emp" items="${usuarios}" >
 							<tr>
-								<td>${emp.id_empresa}</td>
-								<td>${emp.nombre}</td>
-								<td>${emp.descripcion}</td>
+								<td>${emp.id}</td>
+								<td>${emp.username}</td>
+								<td>${emp.fulname}</td>
+								<td>${emp.email}</td>
 								<td><a
-									href="<%=request.getContextPath()%>/admin/emp/editform/${emp.id_empresa}"
+									href="<%=request.getContextPath()%>/admin/user/editform/${emp.id}"
 									class="btn btn-info btn-xs"> <i
 										class="glyphicon glyphicon-check"></i>Edit
 								</a></td>
 								<td><a
-									href="<%=request.getContextPath()%>/admin/emp/deleteform/${emp.id_empresa}"
+									href="<%=request.getContextPath()%>/admin/user/deleteform/${emp.id}"
 									class="btn btn-danger btn-xs"> <i
 										class="glyphicon glyphicon-trash"></i> Delete
 								</a></td>

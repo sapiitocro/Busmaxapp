@@ -17,18 +17,24 @@
 	<div class="container-fluid">
 		<div class="row-fluid">
 			<div class="col-md-6">
-				<h4 class="text-center">Borrar Empresa</h4>
+				<h4 class="text-center">Borrar Usuario</h4>
 				<hr>
-				<form:form method="post" servletRelativeAction="/admin/emp/delete" modelAttribute="empresa" >
-					<form:hidden path="id_empresa" />
+				<form:form method="post" servletRelativeAction="/admin/user/delete" modelAttribute="usuario" >
+					<form:hidden path="id" />
+					
 					<div class="form-group">
-						<label for="nombre">Nombre: </label>
-						<form:input path="nombre" class="form-control" readonly="true" />
+						<label for="username">Username: </label>
+						<form:input path="username" class="form-control" readonly="true" />
 					</div>
 					<div class="form-group">
-						<label for="descripcion">Descripcion: </label>
-						<form:input path="descripcion" class="form-control"  readonly="true"/>
+						<label for="fullname">Nombre Completo: </label>
+						<form:input path="fulname" class="form-control"  readonly="true"/>
 					</div>
+					<div class="form-group">
+						<label for="email">email: </label>
+						<form:input path="email" class="form-control"  readonly="true"/>
+					</div>
+					
 					
 					<%-- 
 					<div class="form-group">
@@ -38,7 +44,7 @@
 					--%>		
 					<div class="form-group">
 						<input type="submit" value="Delete" class="btn btn-success" />
-						<a href="<%=request.getContextPath()%>/admin/emp/list" class="btn btn-danger">Cancel</a>
+						<a href="<%=request.getContextPath()%>/admin/user/list" class="btn btn-danger">Cancel</a>
 					</div>
 				</form:form>
 				<font color="red">${message}</font>

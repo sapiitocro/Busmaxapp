@@ -3,15 +3,18 @@ package com.tecsup.integrador.model;
 
 public class UserApi {
 
-    private Long id;
+    private long id;
     private String username;
     private String password;
+    private String fulname;
+    private String email;
+    
 
-    public Long getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(Long id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -33,12 +36,27 @@ public class UserApi {
 
 
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
-    }
+    public String getFulname() {
+		return fulname;
+	}
+
+	public void setFulname(String fulname) {
+		this.fulname = fulname;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	@Override
+	public String toString() {
+		return "UserApi [id=" + id + ", username=" + username + ", password=" + password + ", fulname=" + fulname
+				+ ", email=" + email + "]";
+	}
+
+	
 }
