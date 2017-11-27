@@ -210,7 +210,7 @@ public class RegisterController {
 		} else {
 			try {
 				userService.update(emp.getUsername(),emp.getFulname(),emp.getEmail(),emp.getId());
-				modelAndView = new ModelAndView("redirect:/admin/user/list");
+				modelAndView = new ModelAndView("redirect:/admin/menu");
 
 			} catch (Exception e) {
 				// model.addAttribute("message", e.getMessage());

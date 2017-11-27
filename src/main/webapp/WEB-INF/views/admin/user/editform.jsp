@@ -51,7 +51,7 @@
 					--%>	
 					<div class="form-group">
 						<input type="submit" value="Save" class="btn btn-success" />
-						<a href="<%=request.getContextPath()%>/admin/user/list" class="btn btn-danger">Cancel</a>
+						<a href="<%=request.getContextPath()%>/admin/menu" class="btn btn-danger">Cancel</a>
 					</div>
 				</form:form>
 				<font color="red">${message}</font>

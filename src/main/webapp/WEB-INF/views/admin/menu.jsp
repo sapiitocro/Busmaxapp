@@ -26,7 +26,7 @@
 								class="btn btn-primary"> Manager Employees</a>
 							</td>
 							<td>
-								<a href="#"
+								<a href="<%=request.getContextPath()%>/admin/user/editform/${id}"
 								class="btn btn-primary"> Logout</a>
 							</td>
 						</tr>
