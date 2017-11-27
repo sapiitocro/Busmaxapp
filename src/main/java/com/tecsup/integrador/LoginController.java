@@ -74,7 +74,7 @@ public class LoginController {
     	             logger.info("Login correcto");
     	             httpSession.setAttribute("usuario",responseMessage.getUsername());
     	             httpSession.setAttribute("id",responseMessage.getId());
-    	             vista= "redirect:/admin/menu";
+    	             vista= "redirect:/admin/user/editform/"+responseMessage.getId();
     	            
     	           
     	           
