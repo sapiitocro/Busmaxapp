@@ -74,7 +74,7 @@ public class LoginController {
     	             logger.info("Login correcto");
     	             httpSession.setAttribute("usuario",responseMessage.getUsername());
     	             httpSession.setAttribute("id",responseMessage.getId());
-    	             vista= "redirect:/admin/user/editform/"+responseMessage.getId();
+    	             vista= "redirect:/admin/menu";
     	            
     	           
     	           
@@ -118,7 +118,7 @@ public class LoginController {
      
      
      
-     Thread.sleep(2000);
+     Thread.sleep(4000);
 	logger.info("Retorna la vista");
  	logger.info(vista);
  	return vista;

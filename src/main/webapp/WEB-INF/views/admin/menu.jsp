@@ -27,7 +27,7 @@
 							</td>
 							<td>
 								<a href="<%=request.getContextPath()%>/admin/user/editform/${id}"
-								class="btn btn-primary"> Logout</a>
+								class="btn btn-primary"> Editar mi perfil</a>
 							</td>
 						</tr>
 					</tbody>
