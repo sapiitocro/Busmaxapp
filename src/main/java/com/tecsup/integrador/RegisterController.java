@@ -1,6 +1,8 @@
 package com.tecsup.integrador;
 
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -59,7 +61,7 @@ public class RegisterController {
 				  @RequestParam(value = "username") String username,
 				  @RequestParam(value = "password") String password,
 				  @RequestParam(value = "fullname") String fullname,
-				  @RequestParam(value = "email") String email) throws InterruptedException 
+				  @RequestParam(value = "email") String email) throws InterruptedException, IOException 
 	{								
 	
    
@@ -69,7 +71,45 @@ public class RegisterController {
      Call<UserApi> call = service.createUsuario(username, password,fullname,email);
      logger.info("Culminó la creación del APi");			
 	//Mensajes de error o bienvenida     
-     
+     Response<UserApi> response = call.execute();
+     try 
+     {
+         int statusCode = response.code();
+         logger.info("HTTP status code: " + statusCode);    
+         
+         if (response.isSuccessful()) 
+         {
+             UserApi responseMessage = response.body();
+             logger.info("responseMessage: " + responseMessage);
+             logger.info("registro correcto");
+             httpSession.setAttribute("usuario",responseMessage.getUsername());
+             vista= "redirect:/admin/menu";
+            
+           
+           
+            
+         } else 
+         {
+        	//progressDialog.dismiss();
+        	 logger.info("Registro incorrecto");
+        	 logger.info("onError: " + response.errorBody().string());
+        	 model.addAttribute("message", "Registro incorrecto");
+             vista="register";
+         }
+     }catch (Throwable t) 
+     {
+         		try 
+         		{
+         			logger.info("Error tipo T");
+         			logger.info("onThrowable: " + t.toString());
+         			logger.info("onThrowable: " + t.toString(), t);
+        	
+         			model.addAttribute("message", t.getMessage());
+         			 vista= "register";   	        	           	             
+         		} catch (Throwable x) 
+         		{}
+     }
+     /*
      call.enqueue(new Callback<UserApi>() 
      {    	
     	 public void onResponse(Call<UserApi> call, Response<UserApi> response) 
@@ -126,10 +166,10 @@ public class RegisterController {
          
       	
      });
-     
-     
-     
      Thread.sleep(2000);
+     */
+     
+     
 	logger.info("Retorna la vista");
  	logger.info(vista);
  	return vista;

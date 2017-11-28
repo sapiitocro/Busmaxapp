@@ -1,6 +1,8 @@
 package com.tecsup.integrador;
 
 
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -15,6 +17,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.filter.OncePerRequestFilter;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.tecsup.integrador.api.ApiService;
@@ -47,7 +50,7 @@ public class LoginController {
 	@PostMapping("/login")
 	public String login(final Model model,final HttpSession httpSession,
 				  @RequestParam(value = "username") String username,
-				  @RequestParam(value = "password") String password) throws InterruptedException 
+				  @RequestParam(value = "password") String password) throws InterruptedException, IOException 
 	{								
 	
    
@@ -56,8 +59,54 @@ public class LoginController {
 	 ApiService service = ApiServiceGenerator.createService(ApiService.class);
      Call<UserApi> call = service.loginUser(username, password);
      logger.info("Culminó la creación del APi");			
-	//Mensajes de error o bienvenida     
+	//Mensajes de error o bienvenida    
      
+   
+     
+     Response<UserApi> response = call.execute();
+     
+     logger.info(String.valueOf(response.code()));
+     try 
+     {
+         int statusCode = response.code();
+         logger.info("HTTP status code: " + statusCode);    
+         
+         if (response.isSuccessful()) 
+         {
+             UserApi responseMessage = response.body();
+             logger.info("responseMessage: " + responseMessage);
+             logger.info("Login correcto");
+             httpSession.setAttribute("usuario",responseMessage.getUsername());
+             httpSession.setAttribute("id",responseMessage.getId());
+             vista= "redirect:/admin/menu";
+            
+           
+           
+            
+         } else 
+         {
+        	//progressDialog.dismiss();
+        	 logger.info("Login incorrecto");
+        	 logger.info("onError: " + response.errorBody().string());
+        	 model.addAttribute("message", "Usuario y clave incorrectos");
+             vista="login";
+         }
+     }catch (Throwable t) 
+     {
+         		try 
+         		{
+         			logger.info("Error tipo T");
+         			logger.info("onThrowable: " + t.toString());
+         			logger.info("onThrowable: " + t.toString(), t);
+        	
+         			model.addAttribute("message", t.getMessage());
+         			 vista= "login";   	        	           	             
+         		} catch (Throwable x) 
+         		{}
+     }
+     
+     
+     /*
      call.enqueue(new Callback<UserApi>() 
      {    	
     	 public void onResponse(Call<UserApi> call, Response<UserApi> response) 
@@ -116,9 +165,9 @@ public class LoginController {
       	
      });
      
+     */
      
      
-     Thread.sleep(4000);
 	logger.info("Retorna la vista");
  	logger.info(vista);
  	return vista;
